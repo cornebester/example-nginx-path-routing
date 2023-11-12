@@ -1,0 +1,48 @@
+version: "3.7"
+
+networks:
+  example:
+
+services:
+  proxy:
+    image: nginx:1.25
+    networks:
+      - example
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-reverse-proxy-config/etc/nginx/sites-available/:/etc/nginx/conf.d:ro # sites available, sites enabled 
+      - ./nginx-reverse-proxy-config/etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro # main config
+      - ./nginx-reverse-proxy-config/etc/nginx/nginxconfig.io:/etc/nginx/nginxconfig.io # additional config shared
+    mem_limit: 2g
+    restart: always
+    
+  default-target:
+    image: nginx:1.25
+    networks:
+      - example
+    expose:
+      - 80
+    volumes:
+      -  ./static-content/default-target:/usr/share/nginx/html:ro
+    restart: always
+
+  target2:
+    image: nginx:1.25
+    networks:
+      - example
+    expose:
+      - 80
+    volumes:
+      -  ./static-content/target2:/usr/share/nginx/html:ro
+    restart: always
+
+  target3:
+    image: nginx:1.25
+    networks:
+      - example
+    expose:
+      - 80
+    volumes:
+      -  ./static-content/target3:/usr/share/nginx/html:ro
+    restart: always
