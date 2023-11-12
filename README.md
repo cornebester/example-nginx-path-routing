@@ -2,12 +2,11 @@
 
 Example showing how to do path based routing using nginx as reverse proxy  
 
-* Also using 3 nginx containers as targets, each loading some static content  
+* Using 3 nginx containers as targets, each loading some static content  
 * http only, no ssl  
-
-route path / routes to default-target container  
-path /2 routes to target2 container  
-path /3 routes to target3 container  
+* path / routes to default-target container  
+* path /2 routes to target2 container  
+* path /3 routes to target3 container  
 
 ## pre-requisites
 
